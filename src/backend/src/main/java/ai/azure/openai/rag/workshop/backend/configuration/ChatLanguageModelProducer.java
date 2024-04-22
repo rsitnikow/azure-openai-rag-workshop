@@ -9,10 +9,25 @@ import static java.time.Duration.ofSeconds;
 
 public class ChatLanguageModelProducer {
 
-  @Produces
-  public ChatLanguageModel chatLanguageModel() {
-    // TODO: initialize chat model here
-    return null;
-  }
+
+@ConfigProperty(name = "AZURE_OPENAI_KEY", defaultValue = "__dummy")
+String azureOpenAiKey;
+
+@ConfigProperty(name = "AZURE_OPENAI_URL")
+String azureOpenAiEndpoint;
+
+@ConfigProperty(name = "AZURE_OPENAI_DEPLOYMENT_NAME", defaultValue = "gpt-35-turbo")
+String azureOpenAiDeploymentName;
+
+@Produces
+public ChatLanguageModel chatLanguageModel() {
+  return AzureOpenAiChatModel.builder()
+    .apiKey(azureOpenAiKey)
+    .endpoint(azureOpenAiEndpoint)
+    .deploymentName(azureOpenAiDeploymentName)
+    .timeout(ofSeconds(60))
+    .logRequestsAndResponses(true)
+    .build();
 }
 
+}

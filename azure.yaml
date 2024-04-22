@@ -6,7 +6,7 @@ metadata:
 
 services:
   frontend:
-    project: ./src/frontend
+    project: ./src/frontend_ori
     dist: dist
     language: ts
     host: staticwebapp
